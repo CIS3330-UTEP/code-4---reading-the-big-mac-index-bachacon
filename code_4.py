@@ -71,4 +71,31 @@ def get_the_most_expensive_big_mac_price_by_year(year):
     return f"{country_name}({code}): ${highest_price}"
 
 if __name__ == "__main__":
-    pass
+    print("\nWelcome to the Big Mac Index Program!")
+
+    print("\nYou will be asked to indicate what you need: (Big Mac Price by Year), (Big Mac Price by Country),\
+        (Cheapest Big Mac Price by Year), and (Most Expensive Big Mac Price by Year). Type (exit) if you no longer need the program")
+
+
+    while True:
+        user_decide = input("\nWhat would you like to know? \n")
+        if user_decide.lower() == "big mac price by year":
+            user_price_by_year = int(input("\nEnter the desired year: \n"))
+            user_country_code = input("\nEnter the country code: \n")
+            print(f"\nHere is the Big Mac Price by Year: {get_big_mac_price_by_year(user_price_by_year, user_country_code)}")
+        elif user_decide.lower() == "big mac price by country":
+            user_country_code = input("\nEnter the desired country code: \n")
+            print(f"\nHere is the Big Mac Price by Country: {get_big_mac_price_by_country(user_country_code)}")
+        elif user_decide.lower() == "cheapest big mac price by year":
+            user_cheap_year = input("\nEnter the desired year: \n")
+            print(get_the_cheapest_big_mac_price_by_year(user_cheap_year))
+        elif user_decide.lower() == "most expensive big mac price by year":
+            user_exp_year = input("\nEnter the desired year: \n")
+            print(get_the_most_expensive_big_mac_price_by_year(user_exp_year))
+        elif user_decide.lower() == "exit":
+            break
+        else:
+            print("\nSomething was typed incorrectly please try again!")
+            
+
+
