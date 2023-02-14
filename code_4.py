@@ -87,10 +87,10 @@ if __name__ == "__main__":
             user_country_code = input("\nEnter the desired country code: \n")
             print(f"\nHere is the Big Mac Price by Country: {get_big_mac_price_by_country(user_country_code)}")
         elif user_decide.lower() == "cheapest big mac price by year":
-            user_cheap_year = input("\nEnter the desired year: \n")
+            user_cheap_year = int(input("\nEnter the desired year: \n"))
             print(get_the_cheapest_big_mac_price_by_year(user_cheap_year))
         elif user_decide.lower() == "most expensive big mac price by year":
-            user_exp_year = input("\nEnter the desired year: \n")
+            user_exp_year = int(input("\nEnter the desired year: \n"))
             print(get_the_most_expensive_big_mac_price_by_year(user_exp_year))
         elif user_decide.lower() == "exit":
             break
