@@ -3,78 +3,45 @@ import pandas as pd
 big_mac_file = './big-mac-full-index.csv'
 
 def get_big_mac_price_by_year(year,country_code):
-    file_object = open(big_mac_file)
-    csv_reader = csv.reader(file_object)
-    next(csv_reader)
-    line_counter = 0
-    mean_big_mac_price = 0
-    big_mac_price = 0
-    for data in csv_reader:
-        if int(data[0][0:4]) == year and data[1].lower() == country_code:
-            line_counter += 1
-            big_mac_price += float(data[6])
-    mean_big_mac_price = big_mac_price / float(line_counter)
+    df = pd.read_csv(big_mac_file)
     
-    
-    return round(mean_big_mac_price, 2)
+    filtered_df = df[(df['date'].str[:4] == str(year)) & (df['iso_a3'].str.lower() == country_code)]
+    mean_price = round(float(filtered_df['dollar_price'].mean()), 2)
+
+    return mean_price
 
 
 def get_big_mac_price_by_country(country_code):
-    file_object = open(big_mac_file)
-    csv_reader = csv.reader(file_object)
-    next(csv_reader)
-    line_counter = 0
-    mean_big_mac_price = 0
-    big_mac_price = 0
-    for data in csv_reader:
-        if data[1].lower() == country_code:
-            line_counter += 1
-            big_mac_price += float(data[6])
-    mean_big_mac_price = big_mac_price / float(line_counter)
+    df = pd.read_csv(big_mac_file)
+    country_code_df = df[df['iso_a3'].str.lower() == country_code]
+    mean_price_country =round(float(country_code_df['dollar_price'].mean()), 2)
     
-    
-    return round(mean_big_mac_price, 2)
+    return mean_price_country
 
 def get_the_cheapest_big_mac_price_by_year(year):
-    file_object = open(big_mac_file)
-    csv_reader = csv.reader(file_object)
-    next(csv_reader)
-    lowest_price = 10000
-    country_name = 0
-    code = 0
-    for data in csv_reader:
-        if int(data[0][0:4]) == year and float(data[6]) < lowest_price:
-            lowest_price = float(data[6])
-            lowest_price = round(lowest_price, 2)
-            country_name = data[3]
-            code = data[1]
+    df = pd.read_csv(big_mac_file)
+    min_df = df[df['date'].str[:4] == str(year)]
+    min_df_idx = min_df['dollar_price'].idxmin()
+    min_item = df.loc[min_df_idx]
+
     
-    
-    return f"{country_name}({code}): ${lowest_price}"
+    return f"{min_item['name']}({min_item['iso_a3']}): ${round(min_item['dollar_price'], 2)}"
 
 
 def get_the_most_expensive_big_mac_price_by_year(year):
-    file_object = open(big_mac_file)
-    csv_reader = csv.reader(file_object)
-    next(csv_reader)
-    highest_price = 0
-    country_name = 0
-    code = 0
-    for data in csv_reader:
-        if int(data[0][0:4]) == year and float(data[6]) > highest_price:
-            highest_price = float(data[6])
-            highest_price = round(highest_price, 2)
-            country_name = data[3]
-            code = data[1]
+    df = pd.read_csv(big_mac_file)
+    max_df = df[df['date'].str[:4] == str(year)]
+    max_df_idx = max_df['dollar_price'].idxmax()
+    max_item = df.loc[max_df_idx]
     
     
-    return f"{country_name}({code}): ${highest_price}"
+    return f"{max_item['name']}({max_item['iso_a3']}): ${round(max_item['dollar_price'], 2)}"
 
 if __name__ == "__main__":
     print("\nWelcome to the Big Mac Index Program!")
     
     print("\nYou will be asked to indicate what you need: (Big Mac Price by Year), (Big Mac Price by Country),\
-        (Cheapest Big Mac Price by Year), and (Most Expensive Big Mac Price by Year). Type (exit) if you no longer need the program")
+ (Cheapest Big Mac Price by Year), and (Most Expensive Big Mac Price by Year). Type (exit) if you no longer need the program")
     
     
     while True:
