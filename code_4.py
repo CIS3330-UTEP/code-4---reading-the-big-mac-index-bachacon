@@ -4,7 +4,6 @@ big_mac_file = './big-mac-full-index.csv'
 
 def get_big_mac_price_by_year(year,country_code):
     df = pd.read_csv(big_mac_file)
-    
     filtered_df = df[(df['date'].str[:4] == str(year)) & (df['iso_a3'].str.lower() == country_code)]
     mean_price = round(float(filtered_df['dollar_price'].mean()), 2)
 
@@ -49,10 +48,10 @@ if __name__ == "__main__":
         if user_decide.lower() == "big mac price by year":
             user_price_by_year = int(input("\nEnter the desired year: \n"))
             user_country_code = input("\nEnter the country code: \n")
-            print(f"\nHere is the Big Mac Price by Year: {get_big_mac_price_by_year(user_price_by_year, user_country_code)}")
+            print(f"\nHere is the Big Mac Price by Year: {get_big_mac_price_by_year(user_price_by_year, user_country_code.lower())}")
         elif user_decide.lower() == "big mac price by country":
             user_country_code = input("\nEnter the desired country code: \n")
-            print(f"\nHere is the Big Mac Price by Country: {get_big_mac_price_by_country(user_country_code)}")
+            print(f"\nHere is the Big Mac Price by Country: {get_big_mac_price_by_country(user_country_code.lower())}")
         elif user_decide.lower() == "cheapest big mac price by year":
             user_cheap_year = int(input("\nEnter the desired year: \n"))
             print(get_the_cheapest_big_mac_price_by_year(user_cheap_year))
