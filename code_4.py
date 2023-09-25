@@ -22,9 +22,10 @@ def get_the_cheapest_big_mac_price_by_year(year):
     min_df = df[df['date'].str[:4] == str(year)]
     min_df_idx = min_df['dollar_price'].idxmin()
     min_item = df.loc[min_df_idx]
+    cheapest_big_mac_price = f"{min_item['name']}({min_item['iso_a3']}): ${round(min_item['dollar_price'], 2)}"
 
     
-    return f"{min_item['name']}({min_item['iso_a3']}): ${round(min_item['dollar_price'], 2)}"
+    return cheapest_big_mac_price
 
 
 def get_the_most_expensive_big_mac_price_by_year(year):
@@ -32,9 +33,10 @@ def get_the_most_expensive_big_mac_price_by_year(year):
     max_df = df[df['date'].str[:4] == str(year)]
     max_df_idx = max_df['dollar_price'].idxmax()
     max_item = df.loc[max_df_idx]
+    expensive_big_mac_price = f"{max_item['name']}({max_item['iso_a3']}): ${round(max_item['dollar_price'], 2)}"
     
     
-    return f"{max_item['name']}({max_item['iso_a3']}): ${round(max_item['dollar_price'], 2)}"
+    return expensive_big_mac_price
 
 if __name__ == "__main__":
     print("\nWelcome to the Big Mac Index Program!")
